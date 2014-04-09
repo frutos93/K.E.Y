@@ -47,8 +47,14 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
         addMouseListener(this);
         listaFondo = new LinkedList();
         URL goURL = this.getClass().getResource("fondos/story1WB.png");
-        game_over = Toolkit.getDefaultToolkit().getImage(goURL);
-        posImagen = 0;
+        inicio = Toolkit.getDefaultToolkit().getImage(goURL);
+        goURL = this.getClass().getResource("fondos/screen2.png");
+        instru = Toolkit.getDefaultToolkit().getImage(goURL);
+        goURL= this.getClass().getResource("fondos/screen4.png");
+        creditos= Toolkit.getDefaultToolkit().getImage(goURL);
+        listafondo.add(inicio);
+        listafondo.add(instru);
+        listafondo.add(creditos);
     }
 
     /**
