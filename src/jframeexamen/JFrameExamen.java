@@ -45,7 +45,10 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
     private LinkedList<Bloque> lista3;
     private LinkedList<BloqueR> lista4;
     private Image fondo;        // Imagen de fondo
-    private Image inicio;       // Imagen de inicio
+    private Image instru;       // Imagen de inicio
+    private Image inicio;
+    private Image highscore;
+    private Image creditos;
 
     /**
      * Constructor vacio de la clase <code>JFrameExamen</code>.
@@ -64,7 +67,14 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
     public void init() {
         setSize(800, 500);
         URL goURL = this.getClass().getResource("fondos/story1WB.png");
-        game_over = Toolkit.getDefaultToolkit().getImage(goURL);
+        inicio = Toolkit.getDefaultToolkit().getImage(goURL);
+        goURL = this.getClass().getResource("fondos/screen2.png");
+        instru = Toolkit.getDefaultToolkit().getImage(goURL);
+        goURL= this.getClass().getResource("fondos/screen4.png");
+        creditos= Toolkit.getDefaultToolkit().getImage(goURL);
+        listafondo.add(inicio);
+        listafondo.add(instru);
+        listafondo.add(creditos);
     }
 
     /**
@@ -253,7 +263,6 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
 
                 g.drawImage(bola.getImagenI(), bola.getPosX(), bola.getPosY(), this);//Pinta la bola
                 g.drawImage(bar.getImagenI(), bar.getPosX(), bar.getPosY(), this);  //Pinta la Barra
-
                 //    if (pausa) {
                 //        g.setColor(Color.white);
                 //        g.drawString(pill.getPausado(), pill.getPosX() + pill.getAncho() / 3, pill.getPosY() + pill.getAlto() / 2);
