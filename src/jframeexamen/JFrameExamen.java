@@ -26,7 +26,7 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
     private LinkedList<Image> listaFondo;       // Imagen usada para la pausa
     private Image fondo;        // Imagen de fondo
     private Image inicio;       // Imagen de inicio
-    private int posImagen;
+    private  int posImagen;
 
     /**
      * Constructor vacio de la clase <code>JFrameExamen</code>.
@@ -46,15 +46,20 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
         setSize(800, 500);
         addMouseListener(this);
         listaFondo = new LinkedList();
+        vidas = 5;
         URL goURL = this.getClass().getResource("fondos/story1WB.png");
         inicio = Toolkit.getDefaultToolkit().getImage(goURL);
+        listaFondo.add(inicio);
+        
         goURL = this.getClass().getResource("fondos/screen2.png");
-        instru = Toolkit.getDefaultToolkit().getImage(goURL);
+        inicio = Toolkit.getDefaultToolkit().getImage(goURL);
+        
+        listaFondo.add(inicio);
         goURL= this.getClass().getResource("fondos/screen4.png");
-        creditos= Toolkit.getDefaultToolkit().getImage(goURL);
-        listafondo.add(inicio);
-        listafondo.add(instru);
-        listafondo.add(creditos);
+        inicio= Toolkit.getDefaultToolkit().getImage(goURL);
+        listaFondo.add(inicio);
+        imagenVisible = listaFondo.get(0);
+        posImagen = 0;
     }
 
     /**
@@ -78,8 +83,8 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      */
     public void run() {
 
-            actualiza();    
-            checaColision();
+            //actualiza();    
+            //checaColision();
             repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
             try {
                 // El thread se duerme.
@@ -189,11 +194,13 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      * 'y' para ajustar el desfase que puede tener la imagen con el click
      */
     public void mousePressed(MouseEvent e) {
-        imagenVisible = (Image) listaFondo.get(posImagen);
+        imagenVisible = listaFondo.get(posImagen);
+        System.out.print(posImagen);
         posImagen++;
-        if(posImagen == listaFondo.size()){
+       
+        if(posImagen >= listaFondo.size()){
             posImagen = 0;
-            imagenVisible = (Image) listaFondo.get(posImagen);
+            imagenVisible = listaFondo.get(posImagen);
         }
             
     }
@@ -233,10 +240,10 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      */
     public void paint1(Graphics g) {
         if (inicio != null) {
-            g.drawImage(inicio, 0, 0, this);
-        } else if (vidas > 0) {
             g.drawImage(imagenVisible, 0, 0, this);
-
+        } else if (vidas > 0) {
+            
+            g.drawImage(imagenVisible, 0, 0, this);
             } else {
                 //Da un mensaje mientras se carga el dibujo	
                 g.drawString("No se cargo la imagen..", 20, 20);
@@ -253,7 +260,6 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
 */
     @Override
     public void mouseReleased(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
         }
