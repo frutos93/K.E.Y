@@ -20,30 +20,10 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
     // Se declaran las variables. 
     private Image dbImage;	// Imagen a proyectar	
     private Graphics dbg;	// Objeto grafico
-    private SoundClip guile;    // Musica de fondo del juego
-    private SoundClip tazdingo;
-    private SoundClip coin;
-    private int contbloques;    // Contador de bloques destruidos
-    private Ball bola;          // Objeto bola.
-    private Bloque pill;        // Objeto Bloque usado para inicializar las listas 1 y 3
-    private BloqueR pillR;      // Objeto BloqueR usado para inicializar las listas 2 y 4
-    private Barra1 bar;         // Objeto barra, es el movido por el jugador.
-    private boolean musicafondo;// Boolean utilizado para correr o pausar la música de fondo
     private int vidas;          // Contador de vidas
     private Image game_over;    // Imagen de victoria
     private Image perder;       // Imagen de derrota
     private LinkedList<Image> listafondo;       // Imagen usada para la pausa
-    private int direccion;      // Variable para la dirección del personaje
-    private int score;          // Variable de puntuacion
-    private boolean move;       // Variable utilizada para saber si el personaje se esta moviendo o no
-    private boolean pausa;      // Booleano para pausar
-    private boolean moverbola;  // Booleano que indica si la bola se esta moviendo
-    private boolean instrucciones; // Booleano indicado para saber si se estan mostrando las instrucciones
-    private boolean empezar;    // Booleano para comenzar el juego y quitar la pantalla de inicio
-    private LinkedList<Bloque> lista; // Listas de bloques
-    private LinkedList<BloqueR> lista2;
-    private LinkedList<Bloque> lista3;
-    private LinkedList<BloqueR> lista4;
     private Image fondo;        // Imagen de fondo
     private Image inicio;       // Imagen de inicio
 
@@ -88,10 +68,8 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      */
     public void run() {
 
-            if (!pausa && empezar) {
-                actualiza();
-                checaColision();
-            }
+            actualiza();    
+            checaColision();
             repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
             try {
                 // El thread se duerme.
@@ -169,8 +147,7 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      * convierte en falsa.
      */
     public void keyReleased(KeyEvent e) {
-        move = false;
-        bar.setMoviendose(false);
+        
     }
 
     /**
@@ -246,13 +223,11 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      * @paramg es el <code>objeto grafico</code> usado para dibujar.
      */
     public void paint1(Graphics g) {
-        if (!empezar && inicio != null) {
+        if (inicio != null) {
             g.drawImage(inicio, 0, 0, this);
         } else if (vidas > 0) {
             g.drawImage(fondo, 0, 0, this);
 
-                g.drawImage(bola.getImagenI(), bola.getPosX(), bola.getPosY(), this);//Pinta la bola
-                g.drawImage(bar.getImagenI(), bar.getPosX(), bar.getPosY(), this);  //Pinta la Barra
 
                 //    if (pausa) {
                 //        g.setColor(Color.white);
