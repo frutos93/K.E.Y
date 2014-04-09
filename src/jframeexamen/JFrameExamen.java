@@ -22,10 +22,11 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
     private Graphics dbg;	// Objeto grafico
     private int vidas;          // Contador de vidas
     private Image game_over;    // Imagen de victoria
-    private Image perder;       // Imagen de derrota
-    private LinkedList<Image> listafondo;       // Imagen usada para la pausa
+    private Image imagenVisible;       // Imagen de derrota
+    private LinkedList<Image> listaFondo;       // Imagen usada para la pausa
     private Image fondo;        // Imagen de fondo
     private Image inicio;       // Imagen de inicio
+    private int posImagen;
 
     /**
      * Constructor vacio de la clase <code>JFrameExamen</code>.
@@ -43,8 +44,11 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      */
     public void init() {
         setSize(800, 500);
+        addMouseListener(this);
+        listaFondo = new LinkedList();
         URL goURL = this.getClass().getResource("fondos/story1WB.png");
         game_over = Toolkit.getDefaultToolkit().getImage(goURL);
+        posImagen = 0;
     }
 
     /**
@@ -179,17 +183,16 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      * 'y' para ajustar el desfase que puede tener la imagen con el click
      */
     public void mousePressed(MouseEvent e) {
+        imagenVisible = (Image) listaFondo.get(posImagen);
+        posImagen++;
+        if(posImagen == listaFondo.size()){
+            posImagen = 0;
+            imagenVisible = (Image) listaFondo.get(posImagen);
+        }
+            
     }
 
-    /**
-     * Metodo <I>MouseReleased</I> sobrescrito de la clase
-     * <code>MouseEvent</code>.<P>
-     * En este método se verifica si el click del mouse ha sido liberado, si sí
-     * entonces la booleana que l ocontrola se hace falsa, para marcar que ya no
-     * está siendo presionadao.
-     */
-    public void mouseReleased(MouseEvent e) {
-    }
+
 
     /**
      * Metodo <I>mouseReleased</I> sobrescrito de la clase
@@ -226,22 +229,26 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
         if (inicio != null) {
             g.drawImage(inicio, 0, 0, this);
         } else if (vidas > 0) {
-            g.drawImage(fondo, 0, 0, this);
+            g.drawImage(imagenVisible, 0, 0, this);
 
-
-                //    if (pausa) {
-                //        g.setColor(Color.white);
-                //        g.drawString(pill.getPausado(), pill.getPosX() + pill.getAncho() / 3, pill.getPosY() + pill.getAlto() / 2);
-                //    }
-                //if (pausa) {//Al pausar se despliega una imágen de pausa.
-                //    g.drawImage(pause, 0, 20, this);
-                //}
             } else {
                 //Da un mensaje mientras se carga el dibujo	
                 g.drawString("No se cargo la imagen..", 20, 20);
             }
 
         }
+
+        /**
+     * Metodo <I>MouseReleased</I> sobrescrito de la clase
+     * <code>MouseEvent</code>.<P>
+     * En este método se verifica si el click del mouse ha sido liberado, si sí
+     * entonces la booleana que l ocontrola se hace falsa, para marcar que ya no
+     * está siendo presionadao.
+*/
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
         }
     

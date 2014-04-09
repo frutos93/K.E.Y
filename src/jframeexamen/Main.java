@@ -9,6 +9,8 @@ package jframeexamen;
  *
  * @author Carlos Frutos A01139463
  * @author Roberto Ruiz A00813365
+ * @author Jorge Perales A00813101
+ * @author Jesus Navarro A00813111
  * @date 28/02/2014
  * @version 0.1.3
  */
