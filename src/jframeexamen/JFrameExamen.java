@@ -3,29 +3,20 @@ package jframeexamen;
 import javax.swing.JFrame;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Color;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import java.util.ArrayList;
-import JFrameExamen.SoundClip;
-import java.util.LinkedList;
 
-public class JFrameExamen extends JFrame implements Runnable, KeyListener, MouseListener, MouseMotionListener {
+public class JFrameExamen extends JFrame implements Runnable, MouseListener {
 
     private static final long serialVersionUID = 1L;
     // Se declaran las variables. 
     private Image dbImage;	// Imagen a proyectar	
     private Graphics dbg;	// Objeto grafico
-    private int vidas;          // Contador de vidas
-    private Image game_over;    // Imagen de victoria
     private Image imagenVisible;       // Imagen de derrota
     private ArrayList<Image> listaFondo;       // Imagen usada para la pausa
-    private Image fondo;        // Imagen de fondo
     private Image inicio;       // Imagen de inicio
     private Image imagen2;
     private Image imagen3;
@@ -53,7 +44,6 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
         setSize(800, 500);
         addMouseListener(this);
         listaFondo = new ArrayList<>();
-        vidas = 5;
         URL goURL = this.getClass().getResource("fondos/story1WB.png");
         inicio = Toolkit.getDefaultToolkit().getImage(goURL);
         listaFondo.add(inicio);
@@ -161,32 +151,6 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
 
         // Dibuja la imagen actualizada
         g.drawImage(dbImage, 0, 0, this);
-
-    }
-
-    /**
-     * Metodo <I>keypPressed</I> sobrescrito de la clase
-     * <code>KeyEvent</code>.<P>
-     * En este método se actualiza la variable de dirección dependiendo de la
-     * tecla que haya sido precionado El parámetro e se usará cpara obtener la
-     * acción de la tecla que fue presionada.
-     *
-     */
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    public void keyTyped(KeyEvent e) {
-    }
-
-    /**
-     * Metodo <I>keyReleased</I> sobrescrito de la clase
-     * <code>KeyEvent</code>.<P>
-     * En este método se verifica si alguna tecla que haya sido presionada es
-     * liberada. Si es liberada la booleana que controla el movimiento se
-     * convierte en falsa.
-     */
-    public void keyReleased(KeyEvent e) {
 
     }
 
