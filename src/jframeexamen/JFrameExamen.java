@@ -27,7 +27,13 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
     private ArrayList<Image> listaFondo;       // Imagen usada para la pausa
     private Image fondo;        // Imagen de fondo
     private Image inicio;       // Imagen de inicio
-    private int posImagen;
+    private Image imagen2;
+    private Image imagen3;
+    private Image imagen4;
+    private Image imagen5;
+    private Image imagen6;
+    private Image imagen7;
+    private  int posImagen;
 
     /**
      * Constructor vacio de la clase <code>JFrameExamen</code>.
@@ -51,16 +57,33 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
         URL goURL = this.getClass().getResource("fondos/story1WB.png");
         inicio = Toolkit.getDefaultToolkit().getImage(goURL);
         listaFondo.add(inicio);
-
-        goURL = this.getClass().getResource("fondos/screen2.png");
-        inicio = Toolkit.getDefaultToolkit().getImage(goURL);
-
-        listaFondo.add(inicio);
-        goURL = this.getClass().getResource("fondos/screen4.png");
-        inicio = Toolkit.getDefaultToolkit().getImage(goURL);
-        listaFondo.add(inicio);
-        imagenVisible = listaFondo.get(0);
+        
+        URL goURL2 = this.getClass().getResource("fondos/screen2.png");
+        imagen2 = Toolkit.getDefaultToolkit().getImage(goURL2);
+        listaFondo.add(imagen2);
+        
+        URL goURL3 = this.getClass().getResource("fondos/screen3.png");
+        imagen3 = Toolkit.getDefaultToolkit().getImage(goURL3);
+        listaFondo.add(imagen3);
+        
+        URL goURL4 = this.getClass().getResource("fondos/screen4.png");
+        imagen4 = Toolkit.getDefaultToolkit().getImage(goURL4);
+        listaFondo.add(imagen4);
+        
+        URL goURL5 = this.getClass().getResource("fondos/screen5.png");
+        imagen5 = Toolkit.getDefaultToolkit().getImage(goURL5);
+        listaFondo.add(imagen5);
+        
+        URL goURL6 = this.getClass().getResource("fondos/screen6.png");
+        imagen6 = Toolkit.getDefaultToolkit().getImage(goURL6);
+        listaFondo.add(imagen6);
+        
+        URL goURL7 = this.getClass().getResource("fondos/screen7.png");
+        imagen7 = Toolkit.getDefaultToolkit().getImage(goURL7);
+        listaFondo.add(imagen7);
+        
         posImagen = 0;
+        imagenVisible = listaFondo.get(posImagen);
     }
 
     /**
