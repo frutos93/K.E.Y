@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
+import java.util.ArrayList;
 import JFrameExamen.SoundClip;
 import java.util.LinkedList;
 
@@ -23,10 +24,10 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
     private int vidas;          // Contador de vidas
     private Image game_over;    // Imagen de victoria
     private Image imagenVisible;       // Imagen de derrota
-    private LinkedList<Image> listaFondo;       // Imagen usada para la pausa
+    private ArrayList<Image> listaFondo;       // Imagen usada para la pausa
     private Image fondo;        // Imagen de fondo
     private Image inicio;       // Imagen de inicio
-    private  int posImagen;
+    private int posImagen;
 
     /**
      * Constructor vacio de la clase <code>JFrameExamen</code>.
@@ -45,18 +46,18 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
     public void init() {
         setSize(800, 500);
         addMouseListener(this);
-        listaFondo = new LinkedList();
+        listaFondo = new ArrayList<>();
         vidas = 5;
         URL goURL = this.getClass().getResource("fondos/story1WB.png");
         inicio = Toolkit.getDefaultToolkit().getImage(goURL);
         listaFondo.add(inicio);
-        
+
         goURL = this.getClass().getResource("fondos/screen2.png");
         inicio = Toolkit.getDefaultToolkit().getImage(goURL);
-        
+
         listaFondo.add(inicio);
-        goURL= this.getClass().getResource("fondos/screen4.png");
-        inicio= Toolkit.getDefaultToolkit().getImage(goURL);
+        goURL = this.getClass().getResource("fondos/screen4.png");
+        inicio = Toolkit.getDefaultToolkit().getImage(goURL);
         listaFondo.add(inicio);
         imagenVisible = listaFondo.get(0);
         posImagen = 0;
@@ -84,15 +85,16 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
     public void run() {
 
             //actualiza();    
-            //checaColision();
-            repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
-            try {
-                // El thread se duerme.
-                Thread.sleep(20);
-            } catch (InterruptedException ex) {
-                System.out.println("Error en " + ex.toString());
-            }
-        
+        //checaColision();
+        while(true){
+        repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
+        try {
+            // El thread se duerme.
+            Thread.sleep(20);
+        } catch (InterruptedException ex) {
+            System.out.println("Error en " + ex.toString());
+        }
+        }
     }
 
     /**
@@ -102,7 +104,7 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      * ya sea por presionar una tecla o por moverlos con el mouse.
      */
     public void actualiza() {
-        
+
     }
 
     /**
@@ -162,7 +164,7 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      * convierte en falsa.
      */
     public void keyReleased(KeyEvent e) {
-        
+
     }
 
     /**
@@ -194,18 +196,17 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      * 'y' para ajustar el desfase que puede tener la imagen con el click
      */
     public void mousePressed(MouseEvent e) {
-        imagenVisible = listaFondo.get(posImagen);
-        System.out.print(posImagen);
+        imagenVisible = (Image)listaFondo.get(posImagen);
+        
         posImagen++;
-       
-        if(posImagen >= listaFondo.size()){
+
+        if (posImagen >= listaFondo.size()) {
             posImagen = 0;
-            imagenVisible = listaFondo.get(posImagen);
+            imagenVisible =(Image) listaFondo.get(posImagen);
         }
-            
+        System.out.print(posImagen);
+
     }
-
-
 
     /**
      * Metodo <I>mouseReleased</I> sobrescrito de la clase
@@ -236,33 +237,27 @@ public class JFrameExamen extends JFrame implements Runnable, KeyListener, Mouse
      * En este metodo se dibuja la imagen con la posicion actualizada, ademas
      * que cuando la imagen es cargada te despliega una advertencia.
      *
-     * @paramg es el <code>objeto grafico</code> usado para dibujar.
+     * @param g es el <code>objeto grafico</code> usado para dibujar.
      */
     public void paint1(Graphics g) {
-        if (inicio != null) {
-            g.drawImage(imagenVisible, 0, 0, this);
-        } else if (vidas > 0) {
-            
-            g.drawImage(imagenVisible, 0, 0, this);
-            } else {
-                //Da un mensaje mientras se carga el dibujo	
-                g.drawString("No se cargo la imagen..", 20, 20);
-            }
-
+        if (imagenVisible != null) {
+            g.drawImage((Image)listaFondo.get(posImagen), 0, 0, this);
+        } else {
+            //Da un mensaje mientras se carga el dibujo	
+            g.drawString("No se cargo la imagen..", 20, 20);
         }
 
-        /**
+    }
+
+    /**
      * Metodo <I>MouseReleased</I> sobrescrito de la clase
      * <code>MouseEvent</code>.<P>
      * En este método se verifica si el click del mouse ha sido liberado, si sí
      * entonces la booleana que l ocontrola se hace falsa, para marcar que ya no
      * está siendo presionadao.
-*/
+     */
     @Override
     public void mouseReleased(MouseEvent me) {
     }
 
-        }
-    
-
-
+}
