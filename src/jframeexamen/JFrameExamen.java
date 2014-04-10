@@ -1,5 +1,6 @@
 package jframeexamen;
 
+import static java.awt.Color.black;
 import javax.swing.JFrame;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -24,6 +25,7 @@ public class JFrameExamen extends JFrame implements Runnable, MouseListener {
     private Image imagen5;
     private Image imagen6;
     private Image imagen7;
+    private Image kalamity;
     private  int posImagen;
 
     /**
@@ -71,6 +73,9 @@ public class JFrameExamen extends JFrame implements Runnable, MouseListener {
         URL goURL7 = this.getClass().getResource("fondos/screen7.png");
         imagen7 = Toolkit.getDefaultToolkit().getImage(goURL7);
         listaFondo.add(imagen7);
+        
+        URL eURL = this.getClass().getResource("output_LTtvZT.gif");
+        kalamity = Toolkit.getDefaultToolkit().getImage(eURL);
         
         posImagen = 0;
         imagenVisible = listaFondo.get(posImagen);
@@ -183,14 +188,24 @@ public class JFrameExamen extends JFrame implements Runnable, MouseListener {
      * 'y' para ajustar el desfase que puede tener la imagen con el click
      */
     public void mousePressed(MouseEvent e) {
-        imagenVisible = (Image)listaFondo.get(posImagen);
+        if (posImagen <= listaFondo.size()) {
+            imagenVisible = (Image)listaFondo.get(posImagen);
+            posImagen++;
+        }
         
-        posImagen++;
+        //EL +1 es para agregar la pantalla negra con el personaje
+        if (posImagen == listaFondo.size()+1){
+            e.background(black);
+            
+            
+        }
+        
 
-        if (posImagen >= listaFondo.size()) {
+        if (posImagen > listaFondo.size()+1) {
             posImagen = 0;
             imagenVisible =(Image) listaFondo.get(posImagen);
         }
+
         System.out.print(posImagen);
 
     }
@@ -228,7 +243,13 @@ public class JFrameExamen extends JFrame implements Runnable, MouseListener {
      */
     public void paint1(Graphics g) {
         if (imagenVisible != null) {
-            g.drawImage((Image)listaFondo.get(posImagen), 0, 0, this);
+            if (posImagen <= listaFondo.size()){
+                g.drawImage((Image)listaFondo.get(posImagen), 0, 0, this);
+            }
+            if (posImagen == listaFondo.size()+1){
+                
+            }
+            
         } else {
             //Da un mensaje mientras se carga el dibujo	
             g.drawString("No se cargo la imagen..", 20, 20);
